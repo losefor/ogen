@@ -31,6 +31,6 @@
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "dev": "rollup -c rollup.config.js -w",
-    "start": "node src"
+    "start": "node src/server.js"
   }
 }
