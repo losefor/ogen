@@ -10,9 +10,7 @@
     "playwright-core": "^1.26.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
-    "react-textfit": "^1.1.0",
-    "rollup-plugin-livereload": "^2.0.5",
-    "rollup-plugin-serve": "^2.0.1"
+    "react-textfit": "^1.1.0"
   },
   "devDependencies": {
     "@babel/compat-data": "^7.19.3",
@@ -25,7 +23,9 @@
     "rollup": "^2.1.0",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-globals": "^1.4.0"
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-livereload": "^2.0.5",
+    "rollup-plugin-serve": "^2.0.1"
   },
   "scripts": {
     "build": "rollup -c rollup.config.js",
