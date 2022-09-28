@@ -2,11 +2,13 @@ const fs = require("fs");
 const path = require('path')
 const playwright = require("playwright-aws-lambda");
 
-const script = fs.readFileSync(path.resolve(__dirname,".."  , 'dist', "bundle.js"), "utf-8");
+const script = fs.readFileSync(path.resolve(__dirname, "..", 'dist', "bundle.js"), "utf-8");
 
-const generateOG = async function (queries) {
+exports.generateOG = generateOG = async function (queries) {
   // Open the browser
-  const browser = await playwright.launchChromium();
+  const browser = await playwright.launchChromium({
+    headless: true
+  });
   const context = await browser.newContext();
 
 
@@ -44,22 +46,13 @@ const generateOG = async function (queries) {
   await page.addScriptTag({ content: script });
 
   const boundingRect = await page.evaluate(() => {
-    const root = document.getElementById("root");
-    const { x, y, width, height } = root.children[0].getBoundingClientRect();
-    return { x, y, width, height };
+    const rootElement = document.getElementById("root");
+    return rootElement.children[0].getBoundingClientRect();
   });
 
   const screenshotBuffer = await page.screenshot({ clip: boundingRect, path: "test.png" });
   await browser.close();
-  // return {
-  //   isBase64Encoded: true,
-  //   statusCode: 200,
-  //   headers: {
-  //     "Content-Type": "image/png",
-  //     "Content-Length": screenshotBuffer.length.toString()
-  //   },
-  //   body: screenshotBuffer.toString("base64")
-  // };
-};
 
-generateOG()
+
+  return screenshotBuffer
+};
