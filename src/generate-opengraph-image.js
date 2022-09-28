@@ -27,7 +27,7 @@ exports.generateOG = generateOG = async function (queries) {
     content: `
   window.title = "${queryStringParameters?.title || "No Title"}";
   window.tags = ${JSON.stringify(tags)};
-  window.author = "${queryStringParameters?.author || ""}";
+  window.author = "${queryStringParameters?.author || "losefor"}";
   `
   });
   await page.addScriptTag({ content: script });

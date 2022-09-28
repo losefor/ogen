@@ -59,7 +59,7 @@ export const App = () => {
                         lineHeight: 1
                     }}
                 >
-                    This is the TITLE
+                    Generate OG images on the server with express and React
                 </Textfit>
             </h1>
             <div
@@ -88,7 +88,7 @@ export const App = () => {
                         <li key={tag}>{tag}</li>
                     ))}
                 </ul>
-                <span>{window.author}</span>
+                <span>losefor</span>
             </div>
         </div>
     </div>
