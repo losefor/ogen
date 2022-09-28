@@ -18,5 +18,5 @@ app.get("/", async (req, res) => {
 
 
 app.listen("8000", () => {
-    console.log("Server is started on port 8000");
+    console.log("Server is ready on http://localhost:8000");
 })
