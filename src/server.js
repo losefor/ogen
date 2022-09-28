@@ -14,17 +14,6 @@ app.get("/", async (req, res) => {
         .header("Content-Type", "image/png")
         .header("Content-Length", generatedOG.length.toString())
         .send(generatedOG);
-
-
-    // return {
-    //   isBase64Encoded: true,
-    //   statusCode: 200,
-    //   headers: {
-    //     "Content-Type": "image/png",
-    //     "Content-Length": screenshotBuffer.length.toString()
-    //   },
-    //   body: screenshotBuffer.toString("base64")
-    // };
 })
 
 
