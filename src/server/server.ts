@@ -40,9 +40,6 @@ app.get("*", async (req: Request, res: Response) => {
     pageScript,
   });
 
-  console.log();
-  console.log(req.path.slice(1));
-
   res
     .status(200)
     .header("Content-Type", "image/png")
