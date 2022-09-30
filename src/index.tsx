@@ -1,5 +1,5 @@
 import { render } from "react-dom";
-import { App } from './app'
+import { App } from './pages/app'
 import React from 'react'
 
 

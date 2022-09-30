@@ -4,7 +4,7 @@ Easily generate OG images on the server with ExpressJs and ReactJs
 
 ### sample generated on the server
 
-!["Generate image by the server"](./test.png)
+!["Generate image by the server"](./sample.png)
 
 ### Features
 
