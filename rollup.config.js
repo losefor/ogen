@@ -31,7 +31,6 @@ export default pages.map(page => {
       format: "iife",
       sourcemap: true,
     },
-    // acornInjectPlugins: [jsx()],
     plugins: [
       resolve({
         preferBuiltins: true
@@ -47,7 +46,8 @@ export default pages.map(page => {
         }
       }),
       replace({
-        "process.env.NODE_ENV": JSON.stringify("production")
+        "process.env.NODE_ENV": JSON.stringify("production"),
+        preventAssignment: true
       }),
       globals(),
       builtins(),
