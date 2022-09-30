@@ -37,7 +37,8 @@ export default pages.map(page => {
         preferBuiltins: true
       }),
       babel({
-        exclude: "node_modules/**"
+        exclude: "node_modules/**",
+        presets: ["@babel/preset-env", "@babel/preset-react"]
       }),
       commonjs({
         namedExports: {
