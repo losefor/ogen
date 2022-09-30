@@ -14,6 +14,7 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-textfit": "^1.1.0",
+    "rimraf": "^3.0.2",
     "tslib": "^2.4.0",
     "typescript": "^4.8.4"
   },
@@ -37,11 +38,12 @@
     "rollup-plugin-serve": "^2.0.1"
   },
   "scripts": {
-    "build": "yarn build:node && yarn build:react && yarn bundle:react",
+    "build": "yarn clean && yarn build:node && yarn build:react && yarn bundle:react",
     "dev": "rollup -c rollup.config.js -w",
     "start": "node dist/server/server.js",
     "build:react": "yarn tsc --project tsconfig.react.json",
     "bundle:react": "rollup -c rollup.config.js",
-    "build:node": "yarn tsc"
+    "build:node": "yarn tsc",
+    "clean": "yarn rimraf dist"
   }
 }
