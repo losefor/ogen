@@ -2,13 +2,17 @@ const fs = require("fs");
 const path = require("path");
 const playwright = require("playwright-aws-lambda");
 
-const script = fs.readFileSync(path.resolve(__dirname, "bundle.js"), "utf-8");
 const html = fs.readFileSync(
   path.resolve(__dirname, "..", "index.html"),
   "utf-8"
 );
 
-export const generateOG = async function (queries: any) {
+interface GenerateImageProps {
+  data: Record<string, any>;
+  pageScript: string;
+}
+
+export const generateImage = async function (props: GenerateImageProps) {
   // Open the browser
   const browser = await playwright.launchChromium({
     headless: true,
@@ -42,7 +46,7 @@ export const generateOG = async function (queries: any) {
   // const tags = queryStringParameters?.tags
   // ? decodeURIComponent(queryStringParameters.tags).split(",")
   // : [];
-  const parsedScript = parseObjIntoScript(queries);
+  const parsedScript = parseObjIntoScript(props.data);
 
   if (parsedScript) {
     await page.addScriptTag({ content: `window._base={}` });
@@ -51,7 +55,7 @@ export const generateOG = async function (queries: any) {
     });
   }
 
-  await page.addScriptTag({ content: script });
+  await page.addScriptTag({ content: props.pageScript });
 
   const boundingRect = await page.evaluate(() => {
     const rootElement = document.getElementById("root");

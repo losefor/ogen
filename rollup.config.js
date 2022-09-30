@@ -13,7 +13,6 @@ import path from 'path'
 
 const findFilesInDir = (dir) => {
   return fs.readdirSync(dir).filter(el => path.extname(el) === ".tsx").map(el => path.basename(el, path.extname(el)))
-
 }
 
 const pages = findFilesInDir("src/pages")

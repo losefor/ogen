@@ -39,7 +39,7 @@
   "scripts": {
     "build": "yarn build:node && yarn build:react && yarn bundle:react",
     "dev": "rollup -c rollup.config.js -w",
-    "start": "node dist/server.js",
+    "start": "node dist/server/server.js",
     "build:react": "yarn tsc --project tsconfig.react.json",
     "bundle:react": "rollup -c rollup.config.js",
     "build:node": "yarn tsc"

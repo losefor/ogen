@@ -1,8 +1,16 @@
 import express, { Request, Response } from "express";
-const { generateOG } = require("./generate-opengraph-image");
-const fs = require("fs");
+import { generateImage } from "./generate-image";
+import fs from "fs";
+import path from "path";
 
 const app = express();
+
+const findFilesInDir = (dir: string) => {
+  return fs
+    .readdirSync(dir)
+    .filter((el) => path.extname(el) === ".tsx")
+    .map((el) => path.basename(el, path.extname(el)));
+};
 
 // const pages = fs.readdirSync("src/pages")
 
@@ -13,8 +21,27 @@ const app = express();
 //     console.log(content);
 // }
 
-app.get("/", async (req: Request, res: Response) => {
-  const generatedOG = await generateOG(req.query);
+app.get("*", async (req: Request, res: Response) => {
+  const pages = findFilesInDir("src/pages");
+  const visitedPage = req.path.slice(1);
+  const isRouteExist = pages.includes(visitedPage);
+
+  if (!isRouteExist) {
+    return res.status(404).send("Not found");
+  }
+
+  const pageScript = fs.readFileSync(
+    path.resolve(__dirname, "..", "bundle", `${visitedPage}.js`),
+    "utf-8"
+  );
+
+  const generatedOG = await generateImage({
+    data: req.query,
+    pageScript,
+  });
+
+  console.log();
+  console.log(req.path.slice(1));
 
   res
     .status(200)

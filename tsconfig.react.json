@@ -10,7 +10,8 @@
     "noImplicitAny": true,
     "outDir": "./dist",
     "preserveConstEnums": true,
-    "target": "es5"
+    "target": "es5",
+    "rootDir": "src"
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*.tsx"]
