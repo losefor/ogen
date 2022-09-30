@@ -15,6 +15,5 @@
       "*": ["node_modules/*", "src/types/*"]
     }
   },
-  "include": ["src/**/*", "src/locales"],
-  "exclude": ["src/**/*.tsx"]
+  "include": ["src/server/*"]
 }
