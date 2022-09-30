@@ -16,8 +16,6 @@ const findFilesInDir = (dir) => {
 }
 
 const pages = findFilesInDir("src/pages")
-console.log(pages);
-
 
 if (!pages.length) {
   throw new Error(`No sources found in: ${dir}`)
