@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { jsx, Global } from "@emotion/core";
 import { Textfit } from "react-textfit";
+import { render } from "react-dom";
+import React from "react";
 
-export const App = () => {
+export const App: React.FC = () => {
   return (
     <div
       css={{
@@ -96,3 +98,5 @@ export const App = () => {
     </div>
   );
 };
+
+render(<App />, document.querySelector("#root"));
