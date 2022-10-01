@@ -8,39 +8,39 @@ import globals from "rollup-plugin-node-globals";
 import replace from "@rollup/plugin-replace";
 import React from "react";
 import ReactDOM from "react-dom";
-import fs from 'fs'
-import path from 'path'
+import fs from "fs";
+import path from "path";
 
 const findFilesInDir = (dir) => {
-  return fs.readdirSync(dir).filter(el => path.extname(el) === ".tsx").map(el => path.basename(el, path.extname(el)))
-}
+  return fs
+    .readdirSync(dir)
+    .filter((el) => path.extname(el) === ".tsx")
+    .map((el) => path.basename(el, path.extname(el)));
+};
 
-const pages = findFilesInDir("src/pages")
+const pages = findFilesInDir("src/pages");
 
 if (!pages.length) {
-  throw new Error(`No sources found in: ${dir}`)
+  throw new Error(`No sources found in pages`);
 }
 
-export default commandLineArgs => {
-
+export default (commandLineArgs) => {
   console.log({ commandLineArgs });
-  const isBundle = commandLineArgs.bundle
-  const devPage = commandLineArgs.x
+  const isBundle = commandLineArgs.bundle;
+  const devPage = commandLineArgs.x;
 
-  // clear args 
-  delete commandLineArgs.bundle
-  delete commandLineArgs.x
-
+  // clear args
+  delete commandLineArgs.bundle;
+  delete commandLineArgs.x;
 
   bootstrap({
     isBundle,
-    devPage
-  })
-
+    devPage,
+  });
 
   // Prod config
   if (isBundle) {
-    return pages.map(page => {
+    return pages.map((page) => {
       return {
         input: `dist/pages/${page}.js`,
         output: {
@@ -50,46 +50,50 @@ export default commandLineArgs => {
         },
         plugins: [
           resolve({
-            preferBuiltins: true
+            preferBuiltins: true,
           }),
           babel({
             exclude: "node_modules/**",
-            presets: ["@babel/preset-env", "@babel/preset-react"]
+            presets: ["@babel/preset-env", "@babel/preset-react"],
           }),
           commonjs({
             namedExports: {
               "react-dom": Object.keys(ReactDOM),
-              react: Object.keys(React)
-            }
+              react: Object.keys(React),
+            },
           }),
           replace({
             "process.env.NODE_ENV": JSON.stringify("production"),
-            preventAssignment: true
+            preventAssignment: true,
           }),
           globals(),
           builtins(),
-          !isBundle ? serve({
-            open: true,
-            verbose: true,
-            contentBase: ["", "public"],
-            host: "localhost",
-            port: 3000,
-          }) : null,
+          !isBundle
+            ? serve({
+                open: true,
+                verbose: true,
+                contentBase: ["", "public"],
+                host: "localhost",
+                port: "3000",
+              })
+            : null,
           !isBundle ? livereload({ watch: "dist" }) : null,
-        ]
-      }
-    })
+        ],
+      };
+    });
   }
 
   // Dev config
   // if nod dev page provided
   if (devPage === true) {
-    throw new Error("Please provide a page to watch")
+    throw new Error("Please provide a page to watch");
   }
 
-  // if the page is not exist 
+  // if the page is not exist
   if (!pages.includes(devPage)) {
-    throw new Error("This page seems to be not exist. Please provide a valid page to watch")
+    throw new Error(
+      "This page seems to be not exist. Please provide a valid page to watch"
+    );
   }
 
   return {
@@ -101,21 +105,21 @@ export default commandLineArgs => {
     },
     plugins: [
       resolve({
-        preferBuiltins: true
+        preferBuiltins: true,
       }),
       babel({
         exclude: "node_modules/**",
-        presets: ["@babel/preset-env", "@babel/preset-react"]
+        presets: ["@babel/preset-env", "@babel/preset-react"],
       }),
       commonjs({
         namedExports: {
           "react-dom": Object.keys(ReactDOM),
-          react: Object.keys(React)
-        }
+          react: Object.keys(React),
+        },
       }),
       replace({
         "process.env.NODE_ENV": JSON.stringify("production"),
-        preventAssignment: true
+        preventAssignment: true,
       }),
       globals(),
       builtins(),
@@ -124,23 +128,18 @@ export default commandLineArgs => {
         verbose: true,
         contentBase: ["dist"],
         host: "localhost",
-        port: 3000,
+        port: "3000",
       }),
       livereload({ watch: "dist" }),
-    ]
-  }
-
-
-
-
-}
-
+    ],
+  };
+};
 
 // Bootstrap index.html
 const bootstrap = (props) => {
-
   if (props.isBundle) {
-    fs.writeFileSync("dist/index.html",
+    fs.writeFileSync(
+      "dist/index.html",
       `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -152,9 +151,11 @@ const bootstrap = (props) => {
     <noscript> You need to enable JavaScript to run this app. </noscript>
     <div id="root"></div>
   </body>
-</html>`)
+</html>`
+    );
   } else {
-    fs.writeFileSync("dist/index.html",
+    fs.writeFileSync(
+      "dist/index.html",
       `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -167,11 +168,7 @@ const bootstrap = (props) => {
   <div id="root"></div>
   <script src="./bundle/${props.devPage}.js" ></script>
 </body>
-</html>`)
+</html>`
+    );
   }
-
-}
-
-
-
-
+};

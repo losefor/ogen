@@ -36,10 +36,10 @@
   },
   "scripts": {
     "build": "yarn clean && yarn build:node && yarn build:react && yarn bundle:react",
-    "dev": "rollup -cw rollup.config.js -x",
+    "dev": "rollup -cw rollup.config.ts -x",
     "start": "node dist/server/server.js",
     "build:react": "yarn tsc --project tsconfig.react.json",
-    "bundle:react": "rollup -c rollup.config.js --bundle",
+    "bundle:react": "rollup -c rollup.config.ts --bundle",
     "build:node": "yarn tsc",
     "clean": "yarn rimraf dist"
   }
