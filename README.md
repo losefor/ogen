@@ -18,3 +18,9 @@ Easily generate OG images on the server with ExpressJs and ReactJs
 - After you finish run `yarn build` into your terminal this will generate the required js files in the `dist/bundle.js`
 - Run the express server with `yarn start`
 - visit the `/` And enjoy with your own OG image generated from your own React component
+
+### TODO
+
+- [ ] Config file
+- [ ] Image caching
+- [ ] Refactor
